@@ -1,9 +1,13 @@
+/**
+ * @jest-environment node
+ */
+
 import axios from "axios";
 
 import JsonServer from "../../src/index";
 import "./index.mock";
 
-axios.defaults.adapter = require("axios/lib/adapters/http");
+// axios.defaults.adapter = require("axios/lib/adapters/http");
 
 describe("custom", () => {
     const API_URL = "https://api.fake-rest.refine.dev";

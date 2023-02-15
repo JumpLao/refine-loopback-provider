@@ -1,9 +1,13 @@
+/**
+ * @jest-environment node
+ */
+
 import axios from "axios";
 
 import JsonServer from "../../src/index";
 import "./index.mock";
 
-axios.defaults.adapter = require("axios/lib/adapters/http");
+// axios.defaults.adapter = require("axios/lib/adapters/http");
 
 describe("deleteOne", () => {
     it("correct response", async () => {

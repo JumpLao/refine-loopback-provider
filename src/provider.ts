@@ -1,4 +1,4 @@
-import { AxiosInstance } from "axios";
+import { AxiosInstance, AxiosRequestHeaders } from "axios";
 import { stringify } from "qs";
 import { DataProvider } from "@pankod/refine-core";
 import { axiosInstance, generateSort, generateFilter } from "./utils";
@@ -56,7 +56,7 @@ export const dataProvider = (
             params: {
                 filter: query
             },
-            paramsSerializer: stringify
+            // paramsSerializer: stringify
         })
 
         const total = +headers["x-total-count"];
@@ -148,7 +148,7 @@ export const dataProvider = (
         if (headers) {
             httpClient.defaults.headers = {
                 ...httpClient.defaults.headers,
-                ...headers,
+                ...headers as AxiosRequestHeaders,
             };
         }
 
@@ -167,7 +167,7 @@ export const dataProvider = (
             default:
                 axiosResponse = await httpClient.get(url, {
                     params: query,
-                    paramsSerializer: stringify
+                    // paramsSerializer: stringify
                 });
                 break;
         }
