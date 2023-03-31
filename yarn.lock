@@ -728,10 +728,10 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@pankod/refine-cli@^1.9.0":
-  version "1.17.0"
-  resolved "https://registry.yarnpkg.com/@pankod/refine-cli/-/refine-cli-1.17.0.tgz#4dab7464ede7adc9dcafb7131d411c1540505ce5"
-  integrity sha512-dIalVfivGgWbgGFlpbMlUIgWvhmMXuoukp5CALUqDbp0mjmYtiYdt8OarojMCS+UmgBdCY88bIpmRvpgUB9+2Q==
+"@refinedev/cli@^2.0.0":
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/@refinedev/cli/-/cli-2.1.2.tgz#8bdde40eba26bcb250f2fabb42ce2fb69995f3a3"
+  integrity sha512-yNfxp3nqvxpznbqs5OI4Jz7AtftTPldQU3ZL1dItcMA7WDgBHpAnvEWSfGdYYFBHxSxrJJPtpoIPEtr53/dnZg==
   dependencies:
     boxen "^5.1.2"
     cardinal "^2.1.1"
@@ -762,10 +762,10 @@
     temp "^0.9.4"
     tslib "^2.3.1"
 
-"@pankod/refine-core@^3.86.0":
-  version "3.99.4"
-  resolved "https://registry.yarnpkg.com/@pankod/refine-core/-/refine-core-3.99.4.tgz#63189bfe53cd5947d97b54ea20b7bf0501bd1aa4"
-  integrity sha512-XgSEQcrz4CTsUI8wxGH60JfMZWHR2C8KGhcCU10OheIz/VyuU5kbzpwwl778dRR/YxvY/fOsYdqxXbiXyu7U3Q==
+"@refinedev/core@^4.0.0":
+  version "4.5.6"
+  resolved "https://registry.yarnpkg.com/@refinedev/core/-/core-4.5.6.tgz#381e11f2dabe3cef8785d29aec608f85235e984b"
+  integrity sha512-QqpAxNdS2wFkF8mSm/PXdQpJ1j7VWddrIA3ovyrKKUF+R5XsalG6+vnmRGgF4yjod0yOb2mzDsjoJ6onPoylyg==
   dependencies:
     "@tanstack/react-query" "^4.10.1"
     "@tanstack/react-query-devtools" "^4.10.1"

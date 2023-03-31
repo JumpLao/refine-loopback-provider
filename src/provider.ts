@@ -1,6 +1,6 @@
 import { AxiosInstance, AxiosRequestHeaders } from "axios";
 import { stringify } from "qs";
-import { DataProvider } from "@pankod/refine-core";
+import { DataProvider } from "@refinedev/core";
 import { axiosInstance, generateSort, generateFilter } from "./utils";
 
 export const dataProvider = (
