@@ -1149,7 +1149,7 @@ nock("https://api.fake-rest.refine.dev:443", { encodedQueryParams: true })
         limit: 10,
         where: {
             or: [
-                { 
+                {
                     'categoryId': {
                         eq: 1
                     },
@@ -1527,3 +1527,87 @@ nock("https://api.fake-rest.refine.dev:443", { encodedQueryParams: true })
         'W/"292e-QyaIdJgeENcIUIgHmY1COHjk5N0"',
     ],
 );
+
+nock("https://api.fake-rest.refine.dev:443", { encodedQueryParams: true })
+    .get("/posts")
+    .query({
+        filter: {
+            skip: 0,
+            limit: 10,
+            fields: ['id']
+        }
+    })
+    .reply(
+        200,
+        [
+            {
+                id: 1,
+            },
+        ],
+    );
+
+nock("https://api.fake-rest.refine.dev:443", { encodedQueryParams: true })
+    .get("/posts")
+    .query({
+        filter: {
+            skip: 0,
+            limit: 10,
+            include: 'auditor'
+        }
+    })
+    .reply(
+        200,
+        [
+            {
+                id: 1,
+                title: "Mollitia ipsam nisi in porro velit asperiores et quaerat dolorem.",
+                slug: "vel-qui-dolorem",
+                content:
+                    "Quam ducimus soluta voluptas qui illum recusandae occaecati. Inventore voluptate labore non. Perferendis dolorem cupiditate nemo iusto ut qui iure et. Iusto sunt ipsam et quia placeat minima odio. Et doloremque quis similique nulla vel omnis et vel ut. Dolorem totam similique est dignissimos fugit minima. Occaecati veniam suscipit quae quasi occaecati non illum incidunt omnis. Qui at fugiat non voluptatum quis. Autem odio voluptates vero qui temporibus. Repellendus et voluptatum.",
+                hit: 858512,
+                category: { id: 44 },
+                user: { id: 14 },
+                status: "rejected",
+                createdAt: "2021-04-28T19:43:05.203Z",
+                image: [
+                    {
+                        url: "http://placeimg.com/640/480",
+                        name: "9144d5cd-977a-42fe-bfee-bcce61c567e8",
+                        status: "done",
+                        type: "image/jpeg",
+                        uid: "da9b6491-5820-4347-90a0-cb735a21d787",
+                    },
+                ],
+                tags: [7, 5, 6],
+                language: 3,
+                auditorId: 17,
+                auditor: {
+                    firstName: 'modi-unde',
+                    lastName: 'labore',
+                }
+            },
+        ],
+    );
+
+nock("https://api.fake-rest.refine.dev:443", { encodedQueryParams: true })
+    .get("/posts")
+    .query({
+        filter: {
+            skip: 0,
+            limit: 10,
+            fields: ['id'],
+            include: 'auditor'
+        }
+    })
+    .reply(
+        200,
+        [
+            {
+                id: 1,
+                auditor: {
+                    firstName: 'modi-unde',
+                    lastName: 'labore',
+                }
+            },
+        ],
+    );

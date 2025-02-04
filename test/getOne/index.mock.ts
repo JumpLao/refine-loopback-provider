@@ -47,3 +47,64 @@ nock("https://api.fake-rest.refine.dev:443", { encodedQueryParams: true })
             'W/"2a7-a0rGaWRcFw0EdW6V+OnQR4/JLnk"',
         ],
     );
+
+nock("https://api.fake-rest.refine.dev:443", { encodedQueryParams: true })
+    .get("/posts/1")
+    .query({
+        filter: {
+            fields: ['id'],
+        },
+    })
+    .reply(
+        200,
+        {
+            id: 1,
+        },
+    );
+
+nock("https://api.fake-rest.refine.dev:443", { encodedQueryParams: true })
+    .get("/posts/1")
+    .query({
+        filter: {
+            include: 'auditor',
+        }
+    })
+    .reply(
+        200,
+        {
+            id: 1,
+            title: "Deleniti et quasi architecto hic quam et tempora vero quo.",
+            slug: "nobis-aut-eligendi",
+            content:
+                "Accusantium sed nam odio ut non qui. Maxime quaerat sed ducimus corrupti consequatur. Facere numquam ut reprehenderit quaerat quia. Recusandae quibusdam asperiores atque architecto quod praesentium sit non. Aut neque repellat veniam veritatis qui et vel alias debitis. Amet eius omnis dolores. Sint sed magni. Dolor eius maiores asperiores et. Et modi illum eius quisquam maxime at vel qui. Sit dolore officiis aliquid quia labore.",
+            categoryId: 20,
+            status: "active",
+            userId: 16,
+            tags: [15, 36, 46],
+            image: [],
+            auditorId: 17,
+            auditor: {
+                firstName: 'modi-unde',
+                lastName: 'labore',
+            },
+        },
+    );
+
+nock("https://api.fake-rest.refine.dev:443", { encodedQueryParams: true })
+    .get("/posts/1")
+    .query({
+        filter: {
+            fields: ['id'],
+            include: 'auditor',
+        }
+    })
+    .reply(
+        200,
+        {
+            id: 1,
+            auditor: {
+                firstName: 'modi-unde',
+                lastName: 'labore',
+            }
+        },
+    );

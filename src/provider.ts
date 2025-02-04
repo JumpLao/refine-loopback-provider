@@ -1,7 +1,33 @@
 import { AxiosInstance, AxiosRequestHeaders } from "axios";
 import { stringify } from "qs";
-import { DataProvider } from "@pankod/refine-core";
+import { BaseKey, BaseRecord, CrudFilters, CrudSorting, GetListResponse, GetManyResponse, GetOneResponse, MetaDataQuery, Pagination, DataProvider as RefineCoreDataProvider } from "@pankod/refine-core";
 import { axiosInstance, generateSort, generateFilter } from "./utils";
+
+export interface DataProvider extends RefineCoreDataProvider {
+    getList: <TData extends BaseRecord = BaseRecord>(params: {
+        resource: string;
+        pagination?: Pagination;
+        hasPagination?: boolean;
+        sort?: CrudSorting;
+        filters?: CrudFilters;
+        metaData?: MetaDataQuery;
+        dataProviderName?: string;
+        meta?: MetaDataQuery;
+    }) => Promise<GetListResponse<TData>>;
+    getMany?: <TData extends BaseRecord = BaseRecord>(params: {
+        resource: string;
+        ids: BaseKey[];
+        metaData?: MetaDataQuery;
+        dataProviderName?: string;
+        meta?: MetaDataQuery;
+    }) => Promise<GetManyResponse<TData>>;
+    getOne: <TData extends BaseRecord = BaseRecord>(params: {
+        resource: string;
+        id: BaseKey;
+        metaData?: MetaDataQuery;
+        meta?: MetaDataQuery;
+    }) => Promise<GetOneResponse<TData>>;
+}
 
 export const dataProvider = (
     apiUrl: string,
@@ -16,6 +42,7 @@ export const dataProvider = (
         pagination = { current: 1, pageSize: 10 },
         filters,
         sort,
+        meta = {},
     }) => {
         const url = `${apiUrl}/${resource}`;
 
@@ -30,7 +57,7 @@ export const dataProvider = (
                 [key: string]: {
                     [key: string]: any
                 }
-            } 
+            }
         } = hasPagination
             ? {
                   skip: (current - 1) * pageSize,
@@ -47,6 +74,9 @@ export const dataProvider = (
         if (generatedSort) {
             query.order = generatedSort
         }
+
+        const { fields, include } = meta;
+
         // const { data, headers } = await httpClient.get(
         //     `${url}?${stringify({
         //         filter: query
@@ -54,7 +84,11 @@ export const dataProvider = (
         // );
         const { data, headers } = await httpClient.get(url, {
             params: {
-                filter: query
+                filter: {
+                    ...query,
+                    fields: fields,
+                    include: include,
+                },
             },
             // paramsSerializer: stringify
         })
@@ -67,9 +101,21 @@ export const dataProvider = (
         };
     },
 
-    getMany: async ({ resource, ids }) => {
+    getMany: async ({ resource, ids, meta = {} }) => {
+        const { fields, include } = meta;
         const { data } = await httpClient.get(
             `${apiUrl}/${resource}?${stringify({ id: ids })}`,
+            {
+                params: {
+                    filter: {
+                        where: {
+                            id: { inq : ids },
+                        },
+                        fields: fields,
+                        include: include,
+                    },
+                },
+            },
         );
 
         return {
@@ -97,10 +143,18 @@ export const dataProvider = (
         };
     },
 
-    getOne: async ({ resource, id }) => {
+    getOne: async ({ resource, id, meta = {} }) => {
         const url = `${apiUrl}/${resource}/${id}`;
+        const { fields, include } = meta;
 
-        const { data } = await httpClient.get(url);
+        const { data } = await httpClient.get(url, {
+            params: {
+                filter: {
+                    fields: fields,
+                    include: include,
+                },
+            },
+        });
 
         return {
             data,
@@ -125,7 +179,7 @@ export const dataProvider = (
 
     custom: async ({ url, method, filters, sort, payload, query, headers }) => {
         // let requestUrl = `${url}?`;
-        
+
         // if (sort) {
         //     const generatedSort = generateSort(sort);
         //     if (generatedSort) {
