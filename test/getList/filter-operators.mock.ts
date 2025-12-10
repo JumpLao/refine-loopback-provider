@@ -8,7 +8,7 @@ nock("https://api.fake-rest.refine.dev:443", { encodedQueryParams: true })
             limit: 10,
             where: {
                 categoryId: {
-                    eq: "null"
+                    eq: null
                 }
             }
         }
@@ -33,7 +33,7 @@ nock("https://api.fake-rest.refine.dev:443", { encodedQueryParams: true })
             limit: 10,
             where: {
                 categoryId: {
-                    neq: "null"
+                    neq: null
                 }
             }
         }

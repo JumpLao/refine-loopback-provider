@@ -23,12 +23,12 @@ export const generateFilter = (filters?: CrudFilters) => {
                 }
 
                 if (operator === "null") {
-                    queryFilters[field] = { eq: "null" };
+                    queryFilters[field] = { eq: null };
                     return;
                 }
 
                 if (operator === "nnull") {
-                    queryFilters[field] = { neq: "null" };
+                    queryFilters[field] = { neq: null };
                     return;
                 }
 
