@@ -2,7 +2,7 @@ import { CrudFilters } from "@refinedev/core";
 import { mapOperator } from "./mapOperator";
 
 export const generateFilter = (filters?: CrudFilters) => {
-    const queryFilters: { [key: string]: {[key: string]: any} } = {};
+    const queryFilters: { [key: string]: { [key: string]: any } } = {};
 
     if (filters) {
         filters.map((filter) => {
@@ -11,7 +11,7 @@ export const generateFilter = (filters?: CrudFilters) => {
                 //     `[@pankod/refine-simple-rest]: \`operator: ${filter.operator}\` is not supported. You can create custom data provider. https://refine.dev/docs/api-reference/core/providers/data-provider/#creating-a-data-provider`,
                 // );
                 queryFilters[filter.operator] = filter.value.map(f => generateFilter([f]))
-                return 
+                return
             }
 
             if ("field" in filter) {
@@ -19,6 +19,16 @@ export const generateFilter = (filters?: CrudFilters) => {
 
                 if (field === "q") {
                     queryFilters[field] = value;
+                    return;
+                }
+
+                if (operator === "null") {
+                    queryFilters[field] = { eq: "null" };
+                    return;
+                }
+
+                if (operator === "nnull") {
+                    queryFilters[field] = { neq: "null" };
                     return;
                 }
 

@@ -30,13 +30,13 @@ export const dataProvider = (
                 [key: string]: {
                     [key: string]: any
                 }
-            } 
+            }
         } = hasPagination
-            ? {
-                  skip: (current - 1) * pageSize,
-                  limit: pageSize,
-              }
-            : {};
+                ? {
+                    skip: (current - 1) * pageSize,
+                    limit: pageSize,
+                }
+                : {};
 
         const queryFilters = generateFilter(filters);
         if (queryFilters) {
@@ -56,7 +56,7 @@ export const dataProvider = (
             params: {
                 filter: query
             },
-            // paramsSerializer: stringify
+            paramsSerializer: (params) => stringify(params),
         })
 
         const total = +headers["x-total-count"];
@@ -125,7 +125,7 @@ export const dataProvider = (
 
     custom: async ({ url, method, filters, sort, payload, query, headers }) => {
         // let requestUrl = `${url}?`;
-        
+
         // if (sort) {
         //     const generatedSort = generateSort(sort);
         //     if (generatedSort) {
