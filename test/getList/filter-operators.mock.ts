@@ -3,7 +3,7 @@ import nock from "nock";
 nock("https://api.fake-rest.refine.dev:443", { encodedQueryParams: true })
     .get("/posts")
     .query({
-        filter: {
+        filter: JSON.stringify({
             skip: 0,
             limit: 10,
             where: {
@@ -11,7 +11,7 @@ nock("https://api.fake-rest.refine.dev:443", { encodedQueryParams: true })
                     eq: null
                 }
             }
-        }
+        })
     })
     .reply(
         200,
@@ -28,7 +28,7 @@ nock("https://api.fake-rest.refine.dev:443", { encodedQueryParams: true })
 nock("https://api.fake-rest.refine.dev:443", { encodedQueryParams: true })
     .get("/posts")
     .query({
-        filter: {
+        filter: JSON.stringify({
             skip: 0,
             limit: 10,
             where: {
@@ -36,7 +36,7 @@ nock("https://api.fake-rest.refine.dev:443", { encodedQueryParams: true })
                     neq: null
                 }
             }
-        }
+        })
     })
     .reply(
         200,

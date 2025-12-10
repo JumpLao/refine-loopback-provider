@@ -54,7 +54,7 @@ export const dataProvider = (
         // );
         const { data, headers } = await httpClient.get(url, {
             params: {
-                filter: query
+                filter: JSON.stringify(query)
             },
             paramsSerializer: (params) => stringify(params),
         })
